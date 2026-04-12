@@ -1,41 +1,114 @@
-// Capturando os elementos.
+// ==============================
+//   CAPTURA DOS ELEMENTOS DO DOM
+// ==============================
 
+// Aqui pegamos o textarea onde o usuário digita o texto
 const textArea = document.getElementById("text");
-const quantityWord = document.getElementById("quantity-word");
-const quantityLetters = document.getElementById("quantity-letters")
-const numberSpaces = document.getElementById("number-of-spaces")
-const errorMessage = document.getElementById("error-message")
 
+// Elemento que vai mostrar a quantidade de palavras
+const quantityWord = document.getElementById("quantity-word");
+
+// Elemento que vai mostrar a quantidade de letras
+const quantityLetters = document.getElementById("quantity-letters");
+
+// Elemento que vai mostrar a quantidade de espaços
+const numberSpaces = document.getElementById("number-of-spaces");
+
+// const errorMessage = document.getElementById("error-message")
+// (Comentado por enquanto, mas seria usado para feedback de erro)
+
+
+// ==============================
+//   EVENTO PRINCIPAL (INPUT)
+// ==============================
+
+// Sempre que o usuário digitar algo no textarea ("input"),
+// a função contar() será executada automaticamente
 textArea.addEventListener("input", contar)
+
+
+// ==============================
+//   FUNÇÃO PRINCIPAL (CONTAR)
+// ==============================
+
 function contar () {
+
+  // Primeiro verificamos se o campo está vazio
+  // Se estiver vazio, paramos tudo aqui
   if (campoVazio()) {
     return
   }
-  // contando as palavras.
-  const words =  textArea.value.trim().split(/[\s,]+/)
+
+  // ==============================
+  //   CONTAGEM DE PALAVRAS
+  // ==============================
+
+  // Pegamos o valor do textarea
+  // trim() → remove espaços do início e fim
+  // split(/[\s,]+/) → quebra o texto em palavras (separa por espaço ou vírgula)
+  // filter(word !== "") → remove possíveis valores vazios
+  // filter(regex) → garante que só palavras válidas entrem na contagem
+
+  const words = textArea.value
+    .trim()
+    .split(/[\s,]+/)
+    .filter(word => word !== "")
+    .filter(word => /[a-zA-ZÀ-ú0-9]/.test(word))
+
+  // Pegamos o total de palavras
   const totalWords = words.length
+
+  // Atualizamos a interface
   quantityWord.textContent = `Quantidade de Palavras: ${totalWords}`
-  
-  // contando as letras.
+
+
+  // ==============================
+  //  CONTAGEM DE LETRAS
+  // ==============================
+
+  // length conta TODOS os caracteres (incluindo espaços)
   const letters = textArea.value.length
+
   quantityLetters.textContent = `Quantidade de Letras: ${letters}`
-  
-  // contando os espaços.
+
+
+  // ==============================
+  //     CONTAGEM DE ESPAÇOS
+  // ==============================
+
+  // split(" ") → divide o texto em partes onde há espaço
+  // length - 1 → número de espaços encontrados
   const spaces = textArea.value.split(" ").length - 1
+
   numberSpaces.textContent = `Quantidade de espaços: ${spaces}`
 
+
+  // Aqui você poderia limpar uma mensagem de erro (caso estivesse usando)
   errorMessage.textContent = ""
 }
 
-function campoVazio () {
-  let isError = false
-  if (textArea.value.trim() === "") {
-  quantityWord.textContent = "Quantidade de Palavras: 0"
-  quantityLetters.textContent = "Quantidade de Letras: 0"
-  numberSpaces.textContent = "Quantidade de espaços: 0"
-  isError = true;
-}
-return isError;
-  
-}
 
+// ==================================================
+// FUNÇÃO VALIDAR CAMPO SE ESTIVER VAZIO (VALIDAÇÃO)
+// ==================================================
+
+function campoVazio () {
+
+  // Variável para controlar se existe erro
+  let isError = false
+
+  // trim() remove espaços → evita contar "   " como conteúdo
+  if (textArea.value.trim() === "") {
+
+    // Se estiver vazio, zeramos todos os contadores
+    quantityWord.textContent = "Quantidade de Palavras: 0"
+    quantityLetters.textContent = "Quantidade de Letras: 0"
+    numberSpaces.textContent = "Quantidade de espaços: 0"
+
+    // Marcamos que houve erro
+    isError = true;
+  }
+
+  // Retornamos o resultado (true ou false)
+  return isError;
+}
