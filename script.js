@@ -14,6 +14,9 @@ const quantityLetters = document.getElementById("quantity-letters");
 // Elemento que vai mostrar a quantidade de espaços
 const numberSpaces = document.getElementById("number-of-spaces");
 
+// Elemento que vai apagar tudo.
+const clearAll =  document.getElementById("clear-all")
+
 // const errorMessage = document.getElementById("error-message")
 // (Comentado por enquanto, mas seria usado para feedback de erro)
 
@@ -84,7 +87,7 @@ function contar () {
 
 
   // Aqui você poderia limpar uma mensagem de erro (caso estivesse usando)
-  errorMessage.textContent = ""
+  // errorMessage.textContent = ""
 }
 
 
@@ -111,4 +114,32 @@ function campoVazio () {
 
   // Retornamos o resultado (true ou false)
   return isError;
+}
+
+// Quando o usuário clicar no botão "limpar",
+// a função limparTudo será executada
+clearAll.addEventListener("click", limparTudo)
+
+
+// Função responsável por limpar todo o conteúdo
+function limparTudo () {
+
+    // Verifica se o textarea NÃO está vazio
+    // Isso evita executar ações desnecessárias
+    if (textArea.value !== "") {
+
+      // Limpa o conteúdo digitado pelo usuário
+      textArea.value = ""
+
+      // Zera o contador de palavras para 0
+      quantityWord.textContent = "Quantidade de Palavras: 0 "
+
+      // Zera o contador de espaços para 0
+      numberSpaces.textContent = "Quantidade de espaços: 0"
+
+      //  Zera o contador de letras para 0
+      quantityLetters.textContent = "Quantidade de Letras: 0"
+
+      // Posso chamar a função campoVazio() depois de limpar o textArea também.
+    }
 }
