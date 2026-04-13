@@ -9,7 +9,7 @@ const textArea = document.getElementById("text");
 const quantityWord = document.getElementById("quantity-word");
 
 // Elemento que vai mostrar a quantidade de letras
-const quantityLetters = document.getElementById("quantity-letters");
+const quantityLetters = document.getElementById("quantity-caracters");
 
 // Elemento que vai mostrar a quantidade de espaços
 const numberSpaces = document.getElementById("number-of-spaces");
@@ -62,7 +62,7 @@ function contar () {
   const totalWords = words.length
 
   // Atualizamos a interface
-  quantityWord.textContent = `Quantidade de Palavras: ${totalWords}`
+  quantityWord.textContent = `Palavras: ${totalWords}`
 
 
   // ==============================
@@ -72,7 +72,7 @@ function contar () {
   // length conta TODOS os caracteres (incluindo espaços)
   const letters = textArea.value.length
 
-  quantityLetters.textContent = `Quantidade de Letras: ${letters}`
+  quantityLetters.textContent = `Caracteres: ${letters}`
 
 
   // ==============================
@@ -83,7 +83,7 @@ function contar () {
   // length - 1 → número de espaços encontrados
   const spaces = textArea.value.split(" ").length - 1
 
-  numberSpaces.textContent = `Quantidade de espaços: ${spaces}`
+  numberSpaces.textContent = `Espaços: ${spaces}`
 
 
   // Aqui você poderia limpar uma mensagem de erro (caso estivesse usando)
@@ -104,9 +104,9 @@ function campoVazio () {
   if (textArea.value.trim() === "") {
 
     // Se estiver vazio, zeramos todos os contadores
-    quantityWord.textContent = "Quantidade de Palavras: 0"
-    quantityLetters.textContent = "Quantidade de Letras: 0"
-    numberSpaces.textContent = "Quantidade de espaços: 0"
+    quantityWord.textContent = "Palavras: 0"
+    quantityLetters.textContent = "Caracteres: 0"
+    numberSpaces.textContent = "Espaços: 0"
 
     // Marcamos que houve erro
     isError = true;
@@ -132,13 +132,13 @@ function limparTudo () {
       textArea.value = ""
 
       // Zera o contador de palavras para 0
-      quantityWord.textContent = "Quantidade de Palavras: 0 "
+      quantityWord.textContent = "Palavras: 0 "
 
       // Zera o contador de espaços para 0
-      numberSpaces.textContent = "Quantidade de espaços: 0"
+      numberSpaces.textContent = "Espaços: 0"
 
       //  Zera o contador de letras para 0
-      quantityLetters.textContent = "Quantidade de Letras: 0"
+      quantityLetters.textContent = " Caracteres: 0"
 
       // Posso chamar a função campoVazio() depois de limpar o textArea também.
     }
